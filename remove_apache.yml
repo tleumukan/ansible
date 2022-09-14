@@ -1,0 +1,15 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+   
+  - name: install apache2
+    dnf:
+      name: httpd
+      state: absent
+  
+  - name: add php support for apache
+    dnf:
+      name: php, php-common, php-pecl-apcu, php-cli
+      state: absent
