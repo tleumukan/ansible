@@ -1,0 +1,32 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+
+  - name: install updates CentOS
+    dnf:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution == "CentOS"
+
+- hosts: web_servers
+  become: true
+  tasks:
+ 
+  - name: update and install apache and php
+    dnf:
+      name:
+        - httpd
+        - php
+      state: latest     
+
+- hosts: db_servers
+  become: true
+  tasks:
+
+  - name: install mariadb CentOS
+    dnf:
+      name: mariadb-server
+      state: latest
+    when: ansible_distribution == "CentOS"
